@@ -3,21 +3,26 @@
 Q.1:- Your task is to explain why the console.log shows the older value of count
 
 
-import React from 'react'
+import React from 'react';
+
 function App() {
-const [count, setCount] = React.useState(0);
-const handleClick = () => {
-setCount(count + 1);
-console.log(count); // You will see the older value of count in console
-};
-return (
-<div>
-    <p>Button is clicked {count} times</p>
-    <button onClick={handleClick}>Click Me</button>
-</div>
-);
+  
+  const [count, setCount] = React.useState(0);
+
+  const handleClick = () => {
+    setCount(count + 1);
+    console.log(count); // You will see the older value of count in console
+  };
+
+  return (
+    <div>
+      <p>Button is clicked {count} times</p>
+      <button onClick={handleClick}>Click Me</button>
+    </div>
+  );
 }
-export default App
+
+export default App;
 
 When i click on button the button clicked 1 time but in console we saw 0 because
 useState is async in nature and when we click on button the entire block of code get
@@ -36,27 +41,33 @@ and in using UseEffect i can console the value of count if buttoncliked is true 
 useState hook then useEffect function renders in page loading and directly logs the initial value
 of count which is 0
 
+import React, { useEffect } from 'react';
 
-import React, { useEffect } from 'react'
 function App() {
-const [count, setCount] = React.useState(0);
-const [buttonClicked, setButtonClicked] = React.useState(false);
-const handleClick = () => {
-setCount(count + 1);
-setButtonClicked(true);
-};
-if (buttonClicked) {
-console.log(count);
-}
-return (
-<div>
-    <p>Button is clicked {count} times</p>
-    <button onClick={handleClick}>Click Me</button>
-</div>
-);
-}
-export default App
+  
+  const [count, setCount] = React.useState(0);
+  const [buttonClicked, setButtonClicked] = React.useState(false);
 
+  const handleClick = () => {
+    setCount(count + 1);
+    setButtonClicked(true);
+  };
+
+  useEffect(() => {
+    if (buttonClicked) {
+      console.log(count);
+    }
+  }, [buttonClicked, count]);
+
+  return (
+    <div>
+      <p>Button is clicked {count} times</p>
+      <button onClick={handleClick}>Click Me</button>
+    </div>
+  );
+}
+
+export default App;
 
 ----------------------------------------------------------------------------------------------------
 
