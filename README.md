@@ -75,25 +75,28 @@ export default App;
 
 Q.2:- Your task is to explain why count value is not updated to 3 as expected
 
-import React from 'react'
+import React from 'react';
+
 function App() {
-const [count, setCount] = React.useState(0);
-const handleClick = () => {
-setCount(count + 1);
-setCount(count + 1);
-setCount(count + 1);
-console.log(count);
-};
-return (
-<div>
-    <p>Button is clicked {count} times</p>
-    <button onClick={handleClick}>Click Me</button>
-</div>
-);
+  
+  const [count, setCount] = React.useState(0);
+
+  const handleClick = () => {
+    setCount(count + 1);
+    setCount(count + 1);
+    setCount(count + 1);
+    console.log(count);
+  };
+
+  return (
+    <div>
+      <p>Button is clicked {count} times</p>
+      <button onClick={handleClick}>Click Me</button>
+    </div>
+  );
 }
 
-export default App
-
+export default App;
 In this code setCount calls do not result in the count being 3 beacuse when we click the button and
 handleclick function got call the initial value of count is 0 and in next line we increase it by 1
 now its become 0+1 = 1 but when we enter in next line the value is count still reflects to 0 because
@@ -107,23 +110,25 @@ the value which is got updated inside that function on that execution.
 Ans:- For getting the expected output of 3 we can use callback functions here. A callback function is a function Which takes another function as an argument inside that function. So if we will update the value of count inside call back we got the updated value as expected. This ensures that each update is applied sequentially and accurately, respecting React's asynchronous state update mechanism.
 
 
-import React from 'react'
+import React from 'react';
 
-// Your task is to explain why count value is not updated to 3 as expected
 function App() {
-const [count, setCount] = React.useState(0);
-const handleClick = () => {
-setCount((pcount) => pcount + 1 );
-setCount((pcount) => pcount + 1 );
-setCount((pcount) => pcount + 1 );
-};
-return (
-<div>
-    <p>Button is clicked {count} times</p>
-    <button onClick={handleClick}>Click Me</button>
-</div>
-);
+  
+  const [count, setCount] = React.useState(0);
+
+  const handleClick = () => {
+    setCount((prevCount) => prevCount + 1);
+    setCount((prevCount) => prevCount + 1);
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  return (
+    <div>
+      <p>Button is clicked {count} times</p>
+      <button onClick={handleClick}>Click Me</button>
+    </div>
+  );
 }
 
-export default App
+export default App;
 
